@@ -25,19 +25,23 @@ public class AnimalAkinatorService {
         cmdReader = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    public void startGame() throws IOException {
-        System.out.println("Хотите поиграем в угадайку про животных? (да/нет)");
-        String answer = cmdReader.readLine();
-        while (!answer.equals("нет")) {
-            System.out.println("Загадай животное, а я попробую угадать...");
-            ask(startQuestion);
-            System.out.println("Хотите сыграть ещё? (да/нет)");
-            answer = cmdReader.readLine();
+    public void startGame() {
+        try {
+            System.out.println("Хотите поиграем в угадайку про животных? (да/нет)");
+            String answer = cmdReader.readLine();
+            while (!answer.equals("нет")) {
+                System.out.println("Загадай животное, а я попробую угадать...");
+                ask(startQuestion);
+                System.out.println("Хотите сыграть ещё? (да/нет)");
+                answer = cmdReader.readLine();
+            }
+            System.out.println("Спасибо, что поиграли со мной! ;)");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
-        System.out.println("Спасибо, что поиграли со мной! ;)");
     }
 
-    public void ask(Question question) throws IOException {
+    private void ask(Question question) throws IOException {
         System.out.println(prefix + question.getValue() + postfix);
         String answer = cmdReader.readLine();
         if (question.getPositiveAnswer() == null && question.getNegativeAnswer() == null) {
